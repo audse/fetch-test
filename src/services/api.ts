@@ -23,6 +23,10 @@ const request = async <T>(url: string, options: RequestInit = {}): Promise<T | v
     return // Return undefined for empty responses (e.g., logout)
 }
 
+const requestWithDefault = async <T>(url: string, defaultValue: T, options: RequestInit = {}): Promise<T> => {
+    const response = await request<T>(url, options)
+    return response ?? defaultValue
+}
 
 // Authentication
 export const login = (name: string, email: string) =>
@@ -37,4 +41,4 @@ export const logout = () =>
     })
 
 // Dogs API
-export const fetchBreeds = () => request<string[]>('/dogs/breeds')
+export const fetchBreeds = () => requestWithDefault<string[]>('/dogs/breeds', [])
