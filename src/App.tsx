@@ -1,18 +1,35 @@
 import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom'
+import HomePage from '@/pages/HomePage'
+import LoginPage from '@/pages/LoginPage'
 
 import './App.css'
-import Home from './pages/Home'
+import { AuthProvider } from '@/context/AuthContext'
+import RequireAuth from '@/components/RequireAuth'
+import RequireUnauth from '@/components/RequireUnauth'
+import Nav from '@/components/Nav'
 
 const router = createBrowserRouter(
     createRoutesFromElements(
-        <Route index element={<Home />} />
+        <>
+            <Route index element={<RequireAuth><HomePage /></RequireAuth>} />
+            <Route path="login" element={<RequireUnauth><LoginPage /></RequireUnauth>} />
+        </>
     )
 )
 
 function App() {
     return (
         <>
-            <RouterProvider router={router} />
+            <AuthProvider>
+                <Nav />
+                <header>
+                    <h1>FetchMate</h1>
+                </header>
+                <main>
+                    <RouterProvider router={router} />
+                </main>
+                <footer></footer>
+            </AuthProvider>
         </>
     )
 }
