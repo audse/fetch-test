@@ -1,9 +1,18 @@
+import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom'
+
 import './App.css'
+import Home from './pages/Home'
+
+const router = createBrowserRouter(
+    createRoutesFromElements(
+        <Route index element={<Home />} />
+    )
+)
 
 function App() {
     return (
         <>
-            <h1>FetchMate</h1>
+            <RouterProvider router={router} />
         </>
     )
 }
