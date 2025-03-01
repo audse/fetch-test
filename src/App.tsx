@@ -23,7 +23,7 @@ function App() {
             <AuthProvider>
                 <Nav />
                 <header>
-                    <h1>FetchMate</h1>
+                    <h1>PawPal</h1>
                 </header>
                 <main>
                     <RouterProvider router={router} />

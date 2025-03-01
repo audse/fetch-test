@@ -6,7 +6,7 @@ export default function Nav() {
     return (
         <nav className="navbar bg-base-300">
             <section className="flex-1">
-                <a href="/" className="btn btn-ghost text-xl">FetchMate</a>
+                <a href="/" className="btn btn-ghost text-xl">PawPal</a>
             </section>
             <section className="flex-none">
                 { isAuthenticated
