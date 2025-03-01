@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Login from '@/components/Login'
 import { useAuth } from '@/context/AuthContext'
+import { login } from '@/services/api'
 
 export default function LoginPage() {
     const [loginError, setLoginError] = useState<string|null>(null)
@@ -9,21 +10,15 @@ export default function LoginPage() {
     const navigate = useNavigate()
 
     const handleSubmit = async (name: string, email: string) => {
-        const response = await fetch(import.meta.env.VITE_API_URL + '/auth/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ name, email }),
-            credentials: 'include'
-        })
-
-        if (response.ok) {
+        try {
+            await login(name, email)
             setLoginError(null)
             setIsAuthenticated(true)
             navigate('/')
+        } catch (error) {
+            console.error('Error logging in:', error)
+            setLoginError('Unable to login. Please try again.')
         }
-        else setLoginError('Unable to login. Please try again.')
     }
 
     return (

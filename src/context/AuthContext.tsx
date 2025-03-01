@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
+import { fetchBreeds, logout as fetchLogout } from '@/services/api'
 
 interface AuthContextType {
   isAuthenticated: boolean | null
@@ -13,12 +14,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     const checkAuth = async () => {
         try {
-            const response = await fetch(import.meta.env.VITE_API_URL + '/dogs/breeds', {
-                method: 'GET',
-                credentials: 'include',
-            })
-            setIsAuthenticated(response.ok)
+            await fetchBreeds()
+            setIsAuthenticated(true)
         } catch (error) {
+            setIsAuthenticated(false)
             console.error('Error checking authentication:', error)
             setIsAuthenticated(false)
         }
@@ -26,11 +25,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     const logout = async () => {
         try {
-            const response = await fetch(import.meta.env.VITE_API_URL + '/auth/logout', {
-                method: 'POST',
-                credentials: 'include',
-            })
-            if (response.ok) setIsAuthenticated(false)
+            await fetchLogout()
+            setIsAuthenticated(false)
         } catch (error) {
             console.error('Error logging out:', error)
         }
