@@ -1,12 +1,12 @@
 import BreedFilter from '@/components/BreedFilter'
-import ZipCodeInput from '@/components/ZipInput'
+import ZipCodeFilter from '@/components/ZipCodeFilter'
 
 export default function HomePage() {
     return (
         <>
             <p>Welcome home!</p>
             <BreedFilter onChange={() => {}} />
-            <ZipCodeInput onChange={() => {}} />
+            <ZipCodeFilter onChange={() => {}} />
         </>
     )
 }
