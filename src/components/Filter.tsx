@@ -7,7 +7,7 @@ type Props = {
     validateInput?: (value: string) => boolean // Optional validation function
     datalistId?: string // Allows setting a custom datalist ID
     className?: string // Optional custom class
-    onChange: (values: string[]) => void
+    onChange?: (values: string[]) => void
 }
 
 export default function Filter({ label, placeholder, fetchOptions, validateInput, datalistId, className, onChange }: Props) {
@@ -28,17 +28,15 @@ export default function Filter({ label, placeholder, fetchOptions, validateInput
             .replace(/\b\w/g, c => c.toUpperCase()) // Title case formatting
     }
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
+    const handleSubmit = () => {
         addSelectedValue(searchTerm)
         setSearchTerm('')
     }
 
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === ',') {
+        if (e.key === 'Enter' || e.key === ',') {
             e.preventDefault()
-            addSelectedValue(searchTerm)
-            setSearchTerm('')
+            handleSubmit()
         }
     }
 
@@ -52,28 +50,27 @@ export default function Filter({ label, placeholder, fetchOptions, validateInput
         if (!fetchOptions || options.includes(formattedValue)) {
             const newValues = [...new Set([...selectedValues, formattedValue])]
             setSelectedValues(newValues)
-            onChange(newValues)
+            if (onChange) onChange(newValues)
         }
     }
 
     const removeSelectedValue = (value: string) => {
         const newValues = selectedValues.filter(v => v !== value)
         setSelectedValues(newValues)
-        onChange(newValues)
+        if (onChange) onChange(newValues)
     }
 
     const clearAll = () => {
         setSelectedValues([])
-        onChange([])
+        if (onChange) onChange([])
     }
 
     return (
         <section className={className}>
-            <form onSubmit={handleSubmit} className="join">
+            <fieldset className="join">
                 <label className="input join-item" htmlFor={datalistId}>
                     {label}
                     <input
-                        id={datalistId}
                         type="text"
                         list={fetchOptions ? datalistId : undefined}
                         value={searchTerm}
@@ -89,8 +86,8 @@ export default function Filter({ label, placeholder, fetchOptions, validateInput
                         </datalist>
                     )}
                 </label>
-                <button type="submit" className="btn join-item">Add</button>
-            </form>
+                <button type="button" className="btn join-item" onClick={handleSubmit}>Add</button>
+            </fieldset>
             {selectedValues.length > 0 && (
                 <div className="mt-2 flex gap-2">
                     {selectedValues.map(value => (

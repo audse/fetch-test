@@ -1,3 +1,5 @@
+import { Dog, DogSearchResponse } from "@/types"
+
 const API_BASE_URL = 'https://frontend-take-home-service.fetch.com'
 
 const request = async <T>(url: string, options: RequestInit = {}): Promise<T | void> => {
@@ -42,3 +44,24 @@ export const logout = () =>
 
 // Dogs API
 export const fetchBreeds = () => requestWithDefault<string[]>('/dogs/breeds', [])
+
+export const searchDogs = async (breeds: string[], zipCodes: string[], ageMin: number | undefined, ageMax: number | undefined) => {
+    const params = new URLSearchParams()
+    breeds.forEach(breed => params.append('breeds', breed))
+    zipCodes.forEach(zipCode => params.append('zipCodes', zipCode))
+    if (ageMin) params.append('ageMin', ageMin.toString())
+    if (ageMax) params.append('ageMax', ageMax.toString())
+
+    console.log('Search params:', params.toString())
+    return requestWithDefault<DogSearchResponse>(`/dogs/search?${params.toString()}`, {
+        total: 0,
+        next: '',
+        resultIds: [],
+    })
+}
+
+export const fetchDogs = async (dogIds: string[]) => 
+    requestWithDefault<Dog[]>('/dogs', [], {
+        method: 'POST',
+        body: JSON.stringify(dogIds),
+    })

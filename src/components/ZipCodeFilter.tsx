@@ -1,6 +1,6 @@
 import Filter from '@/components/Filter'
 
-export default function ZipCodeFilter({ onChange }: { onChange: (zipCodes: string[]) => void }) {
+export default function ZipCodeFilter({ onChange }: { onChange?: (zipCodes: string[]) => void }) {
     return (
         <Filter 
             label="ZIP Code(s)"
