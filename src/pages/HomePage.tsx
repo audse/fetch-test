@@ -1,25 +1,21 @@
 import { useEffect, useState } from 'react'
 import SearchForm from '@/components/SearchForm'
-import { Dog } from '@/types'
-import { fetchDogs } from '@/services/api'
+import { Dog, SearchDogsParams } from '@/types'
+import { fetchDogs, searchDogs } from '@/services/api'
 import DogCard from '@/components/DogCard'
 
 export default function HomePage() {
-    const [dogIds, setDogIds] = useState<string[]>([])
     const [dogs, setDogs] = useState<Dog[]>([])
+    const [searchParams, setSearchParams] = useState<SearchDogsParams>({ breeds: [], zipCodes: [] })
 
     useEffect(() => {
-        fetchDogs(dogIds).then(setDogs)
-    }, [dogIds])
-
-    useEffect(() => {
-        console.log(dogs)
-    }, [dogs])
+        searchDogs(searchParams)
+            .then(response => fetchDogs(response.resultIds).then(setDogs))
+    }, [searchParams])
 
     return (
         <>
-            <p>Welcome home!</p>
-            <SearchForm onChange={setDogIds} />
+            <SearchForm onChange={setSearchParams} />
             <section className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 { dogs.map(dog => <DogCard key={dog.id} dog={dog} />) }
             </section>

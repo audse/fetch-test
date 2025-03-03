@@ -12,6 +12,16 @@ export interface SortParams {
     dir: 'asc' | 'desc'
 }
 
+export interface SearchDogsParams {
+    breeds: string[]
+    zipCodes: string[]
+    ageMin?: number
+    ageMax?: number
+    sortBy?: SortParams['by']
+    sortDir?: SortParams['dir']
+    from?: number
+}
+
 export interface DogSearchResponse {
     total: number
     next: string
