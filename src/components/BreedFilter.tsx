@@ -5,7 +5,7 @@ export default function BreedFilter({ onChange }: { onChange?: (breeds: string[]
     return (
         <Filter 
             label="Breed(s)"
-            placeholder="Eskimo Dog, Pomeranian"
+            placeholder="Golden Retriever, Chihuahua"
             fetchOptions={fetchBreeds}
             onChange={onChange}
             datalistId="breeds"

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import SearchForm from '@/components/SearchForm'
 import { Dog } from '@/types'
 import { fetchDogs } from '@/services/api'
+import DogCard from '@/components/DogCard'
 
 export default function HomePage() {
     const [dogIds, setDogIds] = useState<string[]>([])
@@ -19,11 +20,9 @@ export default function HomePage() {
         <>
             <p>Welcome home!</p>
             <SearchForm onChange={setDogIds} />
-            { dogs.map(dog => <div>
-                {dog.name}
-                {dog.breed}
-                {dog.age}
-            </div>)}
+            <section className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                { dogs.map(dog => <DogCard key={dog.id} dog={dog} />) }
+            </section>
         </>
     )
 }
