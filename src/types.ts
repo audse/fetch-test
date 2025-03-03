@@ -7,6 +7,11 @@ export interface Dog {
     breed: string
 }
 
+export interface SortParams {
+    by: 'breed' | 'age' | 'name' | undefined
+    dir: 'asc' | 'desc'
+}
+
 export interface DogSearchResponse {
     total: number
     next: string
