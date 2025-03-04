@@ -24,7 +24,8 @@ export interface SearchDogsParams {
 
 export interface DogSearchResponse {
     total: number
-    next: string
+    next?: string
+    prev?: string
     resultIds: string[]
 }
 

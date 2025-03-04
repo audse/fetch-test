@@ -55,10 +55,14 @@ export const searchDogs = async (searchParams: SearchDogsParams) => {
 
     return requestWithDefault<DogSearchResponse>(`/dogs/search?${params.toString()}`, {
         total: 0,
-        next: '',
         resultIds: [],
     })
 }
+
+export const searchDogsFromUrl = (url: string) => requestWithDefault<DogSearchResponse>(url, {
+    total: 0,
+    resultIds: []
+}) 
 
 export const fetchDogs = async (dogIds: string[]) => 
     requestWithDefault<Dog[]>('/dogs', [], {
