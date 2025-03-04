@@ -4,6 +4,7 @@ import HomePage from '@/pages/HomePage'
 import LoginPage from '@/pages/LoginPage'
 import SearchPage from '@/pages/SearchPage'
 import { AuthProvider } from '@/context/AuthContext'
+import { FavoritesProvider } from './context/FavoritesContext'
 import RequireAuth from '@/components/RequireAuth'
 import RequireUnauth from '@/components/RequireUnauth'
 import Nav from '@/components/Nav'
@@ -28,9 +29,11 @@ function App() {
     return (
         <MantineProvider theme={theme}>
             <AuthProvider>
-                <Nav />
-                <RouterProvider router={router} />
-                <footer></footer>
+                <FavoritesProvider>
+                    <Nav />
+                    <RouterProvider router={router} />
+                    <footer></footer>
+                </FavoritesProvider>
             </AuthProvider>
         </MantineProvider>
     )

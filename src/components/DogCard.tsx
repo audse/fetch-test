@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { Dog } from '@/types'
 import { Card, Image, Modal, Button, ActionIcon } from '@mantine/core'
-import { HeartIcon } from './Icons'
+import { HeartIcon } from '@/components/Icons'
+import { useFavorites } from '@/context/FavoritesContext'
 
 interface Props {
     dog: Dog
@@ -9,6 +10,15 @@ interface Props {
 
 export default function DogCard({ dog }: Props) {
     const [opened, setOpened] = useState(false)
+    const { isFavorited, toggleFavorite } = useFavorites()
+
+    const Heart = () => <HeartIcon fill={isFavorited(dog) ? 'currentColor' : 'none'} strokeWidth={1.5} />
+    
+    const onClickAddToFavorites = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event.preventDefault()
+        event.stopPropagation()
+        toggleFavorite(dog)
+    }
 
     return (
         <>
@@ -25,10 +35,11 @@ export default function DogCard({ dog }: Props) {
                         <p><strong>Age:</strong> {dog.age} {dog.age === 1 ? 'year' : 'years'} old</p>
                         <p><strong>Location:</strong> {dog.zip_code}</p>
                         <Button 
-                            leftSection={<HeartIcon fill="none" strokeWidth={1.5} />}
-                            variant="outline" 
+                            leftSection={<Heart />}
+                            variant="outline"
                             color="pink"
-                            className="max-w-fit">Add to favorites</Button>
+                            className="max-w-fit"
+                            onClick={() => toggleFavorite(dog)}>{ isFavorited(dog) ? 'Remove from' : 'Add to' } favorites</Button>
                     </div>
                 </div>
             </Modal>
@@ -40,9 +51,7 @@ export default function DogCard({ dog }: Props) {
                 <strong>{dog.name}</strong>
                 <p className="text-sm text-gray-500">{dog.breed}, {dog.age} {dog.age === 1 ? 'year' : 'years'} old</p>
                 <Card.Section className="text-right py-2 px-4">
-                    <ActionIcon variant="subtle" color="pink">
-                        <HeartIcon fill="none" strokeWidth={1.5} />
-                    </ActionIcon>
+                    <ActionIcon variant="subtle" color="pink" onClick={onClickAddToFavorites}><Heart /></ActionIcon>
                 </Card.Section>
             </Card>
         </>
