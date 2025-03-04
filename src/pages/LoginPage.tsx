@@ -14,7 +14,7 @@ export default function LoginPage() {
             await login(name, email)
             setLoginError(null)
             setIsAuthenticated(true)
-            navigate('/')
+            navigate('/search')
         } catch (error) {
             console.error('Error logging in:', error)
             setLoginError('Unable to login. Please try again.')

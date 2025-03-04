@@ -53,7 +53,6 @@ export const searchDogs = async (searchParams: SearchDogsParams) => {
     if (searchParams.ageMax) params.append('ageMax', searchParams.ageMax.toString())
     params.append('sort', `${searchParams.sortBy||'breed'}:${searchParams.sortDir||'asc'}`)
 
-    console.log('Search params:', params.toString())
     return requestWithDefault<DogSearchResponse>(`/dogs/search?${params.toString()}`, {
         total: 0,
         next: '',
