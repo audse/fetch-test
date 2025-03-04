@@ -1,3 +1,5 @@
+import { Button, Input, TextInput } from "@mantine/core"
+
 type Props = {
     onSubmit(name: string, email: string): void
 }
@@ -13,18 +15,10 @@ export default function Login({ onSubmit }: Props) {
     }
 
     return (
-        <form className="flex flex-col gap-4 p-4" onSubmit={handleSubmit}>
-            <label className="input">
-                Name
-                <input type="name" />
-            </label>
-            <label className="input">
-                Email
-                <input type="email" />
-            </label>
-            <button className="btn w-fit" type="submit">
-                Login
-            </button>
+        <form className="space-y-4" onSubmit={handleSubmit}>
+            <TextInput label="Name" variant="filled" className="max-w-64" />
+            <TextInput type="email" label="Email" variant="filled" className="max-w-64" />
+            <Button type="submit">Login</Button>
         </form>
     )
 }

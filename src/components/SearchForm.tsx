@@ -2,10 +2,22 @@ import { useEffect, useState } from 'react'
 import { SearchDogsParams, SortParams } from '@/types'
 import Filter from './Filter'
 import { fetchBreeds } from '@/services/api'
+import { NumberInput, Select } from '@mantine/core'
 
 type Props = {
     onChange: (searchParams: SearchDogsParams) => void
 }
+
+const SortByOptions = [
+    { value: 'breed', label: 'Breed' },
+    { value: 'age', label: 'Age' },
+    { value: 'name', label: 'Name' }
+]
+
+const SortDirOptions = [
+    { value: 'asc', label: 'Ascending' },
+    { value: 'desc', label: 'Descending' }
+]
 
 export default function SearchForm({ onChange }: Props) {
     const [breeds, setBreeds] = useState<string[]>([])
@@ -20,15 +32,11 @@ export default function SearchForm({ onChange }: Props) {
         onChange({ breeds, zipCodes, ageMin, ageMax, sortBy, sortDir })
     }
 
-    const handleNumberChange = (method: (param: number | undefined) => void) => ((event: React.ChangeEvent<HTMLInputElement>) => method(isNaN(event.target.valueAsNumber) ? undefined : event.target.valueAsNumber))
+    const handleChangeSortBy = (value: string | null) =>
+        setSortBy(value === null ? undefined : value as SortParams['by'])
 
-    const handleChangeSortBy = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSortBy(event.target.value as SortParams['by'] || undefined)
-    }
-
-    const handleChangeDir = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSortDir(event.target.value as SortParams['dir'] || undefined)
-    }
+    const handleChangeSortDir = (value: string | null) =>
+        setSortDir(value === null ? 'asc' : value as SortParams['dir'])
 
     useEffect(() => {
         handleSubmit()
@@ -41,41 +49,46 @@ export default function SearchForm({ onChange }: Props) {
                 label="Breed(s)"
                 placeholder="Golden Retriever, Chihuahua"
                 fetchOptions={fetchBreeds}
-                onChange={setBreeds}
-                datalistId="breeds" />
+                onChange={setBreeds} />
 
             {/* Zip Code Input */}
             <Filter 
                 label="ZIP Code(s)"
                 placeholder="12345, 67890"
-                validateInput={(value) => /^\d{5}$/.test(value)} // Ensures 5-digit ZIP codes
+                validateInput={value => /^\d{5}$/.test(value)} // Ensures 5-digit ZIP codes
                 onChange={setZipCodes} />
             
             {/* Age Inputs */}
             <fieldset className="flex gap-2">
-                <label className="input">
-                    Minimum Age
-                    <input type="number" placeholder="1" onChange={handleNumberChange(setAgeMin)} />
-                </label>
-                <label className="input">
-                    Maximum Age
-                    <input type="number" placeholder="15" onChange={handleNumberChange(setAgeMax)} />
-                </label>
+                <NumberInput
+                    label="Minimum Age"
+                    placeholder="1"
+                    variant="filled"
+                    onChange={val => setAgeMin(val === '' ? undefined : Number.parseInt(val.toString()))} />
+                <NumberInput
+                    label="Maximum Age"
+                    placeholder="15"
+                    variant="filled"
+                    onChange={val => setAgeMax(val === '' ? undefined : Number.parseInt(val.toString()))} />
             </fieldset>
 
             {/* Sorting */}
-            <fieldset className="flex gap-2">
-                <select className="select select-bordered" value={sortBy} onChange={handleChangeSortBy}>
-                    <option value="">Sort by...</option>
-                    <option value="breed">Breed</option>
-                    <option value="age">Age</option>
-                    <option value="name">Name</option>
-                </select>
-                <select className="select select-bordered" value={sortDir} onChange={handleChangeDir}>
-                    <option value="">Direction...</option>
-                    <option value="asc">▲ Ascending</option>
-                    <option value="desc">▼ Descending</option>
-                </select>
+            <fieldset className="flex gap-2 items-end">
+                <Select 
+                    label="Sort By"
+                    placeholder="Sort by..."
+                    value={sortBy} 
+                    onChange={handleChangeSortBy}
+                    data={SortByOptions}
+                    variant="filled"
+                    checkIconPosition="right" />
+                <Select 
+                    placeholder="Direction..."
+                    value={sortDir} 
+                    onChange={handleChangeSortDir}
+                    data={SortDirOptions}
+                    variant="filled"
+                    checkIconPosition="right" />
             </fieldset>
         </form>
     )

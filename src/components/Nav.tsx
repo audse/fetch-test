@@ -1,18 +1,15 @@
 import { useAuth } from '@/context/AuthContext'
+import { Button } from '@mantine/core'
 
 export default function Nav() {
     const { isAuthenticated, logout } = useAuth()
     
     return (
-        <nav className="navbar bg-base-300">
-            <section className="flex-1">
-                <a href="/" className="btn btn-ghost text-xl">PawPal</a>
-            </section>
-            <section className="flex-none">
-                { isAuthenticated
-                    ? <button onClick={logout} className="btn btn-ghost">Logout</button>
-                    : <a href="/login" className="btn btn-ghost">Login</a> }
-            </section>
+        <nav className="flex p-2 items-center justify-between">
+            <Button component="a" href="/" variant="subtle" size="compact-lg">PawPal</Button>
+            { isAuthenticated
+                ? <Button onClick={logout} variant="transparent">Logout</Button>
+                :  <Button component="a" href="/login" variant="transparent">Login</Button> }
         </nav>
     )
 }

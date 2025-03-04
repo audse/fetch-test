@@ -1,4 +1,5 @@
 import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom'
+import { createTheme, MantineProvider } from '@mantine/core'
 import HomePage from '@/pages/HomePage'
 import LoginPage from '@/pages/LoginPage'
 import SearchPage from '@/pages/SearchPage'
@@ -8,6 +9,10 @@ import RequireUnauth from '@/components/RequireUnauth'
 import Nav from '@/components/Nav'
 
 import './App.css'
+
+const theme = createTheme({
+  /** Put your mantine theme override here */
+})
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -21,15 +26,13 @@ const router = createBrowserRouter(
 
 function App() {
     return (
-        <>
+        <MantineProvider theme={theme}>
             <AuthProvider>
                 <Nav />
-                <main>
-                    <RouterProvider router={router} />
-                </main>
+                <RouterProvider router={router} />
                 <footer></footer>
             </AuthProvider>
-        </>
+        </MantineProvider>
     )
 }
 

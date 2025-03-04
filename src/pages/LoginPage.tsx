@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import Login from '@/components/Login'
 import { useAuth } from '@/context/AuthContext'
 import { login } from '@/services/api'
+import { Container } from '@mantine/core'
 
 export default function LoginPage() {
     const [loginError, setLoginError] = useState<string|null>(null)
@@ -22,7 +23,7 @@ export default function LoginPage() {
     }
 
     return (
-        <>
+        <Container>
             <Login onSubmit={handleSubmit} />
             {loginError && 
                 <aside role="alert" className="alert alert-error alert-outline w-fit mx-4">
@@ -31,6 +32,6 @@ export default function LoginPage() {
                     </svg>
                     {loginError}
                 </aside>}
-        </>
+        </Container>
     )
 }

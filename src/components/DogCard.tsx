@@ -1,5 +1,6 @@
 
 import { Dog } from '@/types'
+import { Card, Image } from '@mantine/core'
 
 type Props = {
     dog: Dog
@@ -7,19 +8,12 @@ type Props = {
 
 export default function DogCard({ dog }: Props) {
     return (
-        <article className="shadow-xl card">
-            <figure>
-                <img src={dog.img} alt={dog.name} className="h-48 w-full object-cover" />
-            </figure>
-            <section className="card-body">
-                <h2 className="card-title">{dog.name}</h2>
-                <p className="text-sm text-gray-500">Breed: {dog.breed}</p>
-                <p className="text-sm text-gray-500">Age: {dog.age} { dog.age === 1  ? 'year' : 'years' }</p>
-                <p className="text-sm text-gray-500">Location: {dog.zip_code}</p>
-                <div className="card-actions justify-end">
-                    <button className="btn btn-primary">Favorite</button>
-                </div>
-            </section>
-        </article>
+        <Card shadow="lg" padding="lg" className="hover:scale-105 transition-transform">
+            <Card.Section className="mb-4">
+                <Image src={dog.img} alt={dog.name} className="h-48 w-full object-cover" />
+            </Card.Section>
+            <strong>{dog.name}</strong>
+            <p className="text-sm text-gray-500">{dog.breed}, {dog.age} { dog.age === 1  ? 'year' : 'years' } old</p>
+        </Card>
     )
 }
