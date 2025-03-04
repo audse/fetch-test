@@ -28,11 +28,11 @@
 ## Favorites & Matching
 - [x] Users can add dogs to favorites
 - [x] Users can remove dogs from favorites
-- [ ] Users can generate a match from favorited dogs
-- [ ] The matched dog is displayed
+- [x] Users can generate a match from favorited dogs
+- [x] The matched dog is displayed
 
 ## UI & User Experience
-- [ ] Responsive design for different screen sizes
+- [x] Responsive design for different screen sizes
 - [ ] Clear and intuitive UI
 - [ ] Loading indicators for API requests
 - [ ] Error handling for failed requests

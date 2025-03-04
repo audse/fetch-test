@@ -1,4 +1,4 @@
-import { Dog, DogSearchResponse, SearchDogsParams, SortParams } from "@/types"
+import { Dog, DogSearchResponse, SearchDogsParams } from "@/types"
 
 const API_BASE_URL = 'https://frontend-take-home-service.fetch.com'
 
@@ -68,4 +68,10 @@ export const fetchDogs = async (dogIds: string[]) =>
     requestWithDefault<Dog[]>('/dogs', [], {
         method: 'POST',
         body: JSON.stringify(dogIds),
+    })
+
+export const match = async (dogIds: string[]) => 
+    requestWithDefault<{ match: string } | null>('/dogs/match', null, {
+        method: 'POST',
+        body: JSON.stringify(dogIds)
     })

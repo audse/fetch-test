@@ -7,7 +7,7 @@ export default function Nav() {
     const { favorites } = useFavorites()
     
     return (
-        <nav className="flex flex-row p-4 gap-4 items-center justify-between">
+        <nav className="flex flex-row p-2 md:p-4 sm:gap-2 md:gap-4 items-center justify-between">
             <Button component="a" href="/" variant="subtle" size="compact-lg">PawPal</Button>
             { isAuthenticated 
                 ? <Button component="a" href="/search" variant="transparent" size="compact-sm">Adopt</Button>

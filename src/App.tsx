@@ -4,6 +4,7 @@ import HomePage from '@/pages/HomePage'
 import LoginPage from '@/pages/LoginPage'
 import SearchPage from '@/pages/SearchPage'
 import FavoritesPage from '@/pages/FavoritesPage'
+import MatchPage from '@/pages/MatchPage'
 import { AuthProvider } from '@/context/AuthContext'
 import { FavoritesProvider } from './context/FavoritesContext'
 import RequireAuth from '@/components/RequireAuth'
@@ -23,6 +24,7 @@ const router = createBrowserRouter(
             <Route path="login" element={<RequireUnauth><LoginPage /></RequireUnauth>} />
             <Route path="search" element={<RequireAuth><SearchPage /></RequireAuth>} />
             <Route path="faves" element={<RequireAuth><FavoritesPage /></RequireAuth>} />
+            <Route path="match" element={<RequireAuth><MatchPage /></RequireAuth>} />
         </>
     )
 )
