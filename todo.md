@@ -26,8 +26,8 @@
 - [x] Users can view search results in a structured format
 
 ## Favorites & Matching
-- [ ] Users can add dogs to favorites
-- [ ] Users can remove dogs from favorites
+- [x] Users can add dogs to favorites
+- [x] Users can remove dogs from favorites
 - [ ] Users can generate a match from favorited dogs
 - [ ] The matched dog is displayed
 

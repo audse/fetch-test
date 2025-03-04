@@ -3,6 +3,7 @@ import { createTheme, MantineProvider } from '@mantine/core'
 import HomePage from '@/pages/HomePage'
 import LoginPage from '@/pages/LoginPage'
 import SearchPage from '@/pages/SearchPage'
+import FavoritesPage from '@/pages/FavoritesPage'
 import { AuthProvider } from '@/context/AuthContext'
 import { FavoritesProvider } from './context/FavoritesContext'
 import RequireAuth from '@/components/RequireAuth'
@@ -21,6 +22,7 @@ const router = createBrowserRouter(
             <Route index element={<HomePage />} />
             <Route path="login" element={<RequireUnauth><LoginPage /></RequireUnauth>} />
             <Route path="search" element={<RequireAuth><SearchPage /></RequireAuth>} />
+            <Route path="faves" element={<RequireAuth><FavoritesPage /></RequireAuth>} />
         </>
     )
 )
