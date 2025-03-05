@@ -14,7 +14,7 @@ const RequireUnauth = ({ children }: { children: JSX.Element }) => {
         </Container>
     </>
 
-    return !isAuthenticated ? children : <Navigate to="/" replace />
+    return !isAuthenticated ? children : <Navigate to="/search" replace />
 }
 
 export default RequireUnauth

@@ -37,6 +37,14 @@ export default function Filter({ label, placeholder, fetchOptions, validateInput
             data={options}
             onChange={values => onChange?.(values.map(formatValue).filter(validateInput ?? (() => true)))}
             clearable
-            variant="filled" />
+            variant="filled"
+            splitChars={[',']}
+            styles={{
+                pill: {
+                    backgroundColor: 'var(--mantine-primary-color-6)',
+                    color: 'var(--mantine-primary-color-contrast)'
+                },
+                inputField: { outline: 'none', boxShadow: 'none' }
+            }} />
     )
 }

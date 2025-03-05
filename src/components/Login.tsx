@@ -1,4 +1,4 @@
-import { Button, Input, TextInput } from "@mantine/core"
+import { Button, TextInput } from "@mantine/core"
 
 type Props = {
     onSubmit(name: string, email: string): void
@@ -16,8 +16,8 @@ export default function Login({ onSubmit }: Props) {
 
     return (
         <form className="space-y-4" onSubmit={handleSubmit}>
-            <TextInput label="Name" variant="filled" className="max-w-64" />
-            <TextInput type="email" label="Email" variant="filled" className="max-w-64" />
+            <TextInput label="Name" variant="filled" className="w-96" />
+            <TextInput type="email" label="Email" variant="filled" className="w-96" />
             <Button type="submit">Login</Button>
         </form>
     )

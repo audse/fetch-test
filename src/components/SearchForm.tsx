@@ -43,7 +43,7 @@ export default function SearchForm({ onChange }: Props) {
     }, [breeds, zipCodes, ageMin, ageMax, sortBy, sortDir])
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4 rounded-2xl bg-white my-4 p-4">
             {/* Breed Input */}
             <Filter
                 label="Breed(s)"
@@ -61,14 +61,20 @@ export default function SearchForm({ onChange }: Props) {
             {/* Age Inputs */}
             <fieldset className="flex gap-2">
                 <NumberInput
+                    className="max-w-28"
                     label="Minimum Age"
                     placeholder="1"
                     variant="filled"
+                    min={0}
+                    allowDecimal={false}
                     onChange={val => setAgeMin(val === '' ? undefined : Number.parseInt(val.toString()))} />
                 <NumberInput
+                    className="max-w-28"
                     label="Maximum Age"
                     placeholder="15"
                     variant="filled"
+                    min={0}
+                    allowDecimal={false}
                     onChange={val => setAgeMax(val === '' ? undefined : Number.parseInt(val.toString()))} />
             </fieldset>
 

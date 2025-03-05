@@ -9,9 +9,9 @@ type Props = {
 
 export default function PageHeader(props: Props) {
     return (
-        <header className="bg-gray-200 p-12 mb-8">
+        <header className="mt-12 mb-8">
             <Container>
-                <h1 className="text-2xl font-bold flex justify-between">
+                <h1 className="text-3xl font-bold flex justify-between">
                     {props.title}
                     {props.right}
                 </h1>

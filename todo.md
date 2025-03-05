@@ -33,8 +33,8 @@
 
 ## UI & User Experience
 - [x] Responsive design for different screen sizes
-- [ ] Clear and intuitive UI
-- [ ] Loading indicators for API requests
+- [x] Clear and intuitive UI
+- [x] Loading indicators for API requests
 - [ ] Error handling for failed requests
 
 ## Deployment & Submission
