@@ -1,5 +1,7 @@
 import { Button, Container } from "@mantine/core";
 
+import dogImageUrl from '@/assets/dog.png'
+
 export default function HomePage() {
     const HowItWorksSection = (props: { number: number, heading: string, body: string }) => (
         <section className="grid grid-cols-[auto_1fr] gap-y-2 gap-x-4">
@@ -13,7 +15,7 @@ export default function HomePage() {
         <>
             <header className="py-24 bg-white">
                 <Container className="flex flex-col md:flex-row md:gap-8 items-center">
-                    <img src="/public/dog.png" className="min-w-24 max-w-100" />
+                    <img src={dogImageUrl} className="min-w-24 max-w-100" />
                     <section className="flex-1">
                         <h1 className="text-5xl my-8">
                             Find your<br />
